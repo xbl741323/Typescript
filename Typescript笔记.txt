@@ -1,0 +1,273 @@
+一、Typescript介绍
+1、Typescript是由微软开发的一款开源的编程语言
+2、Typescript是Javascript的超级。遵循最新的ES6、ES5规范。Typescript扩展了Javascript的
+语法。
+3、Typescript更像后端java、c#这样的面向对象语言，所以可以让js开发大型企业项目。
+4、谷歌也在大力支持Typescript的推广，谷歌的angular2.x就是基于Typescript语法。
+5、最新的Vue、React也可以集成Typescript。
+
+二、Typescript 安装 编译
+安装：npm i typescript -g
+
+编译：tsc index.ts  ->会生成 index.js文件（这样每次都要手动编译一下，很麻烦）
+
+三、Typescript 开发工具 Vscode 配置自动编译.ts文件（为了解决手动编译的问题）
+1、创建 tsconfig.json 文件 tsc --init 生成配置文件  然后在tsconfig.json 文件中将 // "outDir": "./",    改成    "outDir": "./js",   
+
+2、点击菜单 终端-运行任务 点击tsc:监视-tsconfig.json 然后就可以自动生成代码了
+
+四、Typescript中的数据类型
+Typescript中为了是编写的代码更规范，更有利于维护，增加了类型验证，在Typescript中主要给我们提供了以下数据类型
+      布尔类型（boolean）
+      数字类型（number）
+      字符串类型（string）
+      null 和 undefined
+      数组类型（array）
+
+      元组类型（tuple）   
+      枚举类型（enum）
+      任意类型（any）
+      void类型
+      never类型
+
+1. 布尔类型（boolean）
+Es5中的写法（正确写法） ts中（错误写法）
+       var flag = true;
+       flag = 456;
+
+Typescript中为了使编写的代码更规范，更有利于维护，增加了类型校验
+写ts代码必须指定类型
+       var flag:boolean = true;
+       flag = 123 //错误写法
+       flag = flase //正确写法
+       console.log(flag)
+
+2.数字类型（number）
+       var num:number = 123;
+       num = 456; //正确写法
+       console.log(num)
+       num = "str";//错误写法
+
+3.字符串类型（string）
+       var str:string = "this is ts"
+       str='haha' //正确写法
+       console.log(str)
+       str=true;//错误写法
+
+4.数组类型（array）ts中定义数组有两种方式
+   //var arr = [1,2,3,4,5]
+   1.第一种定义数组方式
+   var arr:number[] = [1,2,3,4,5]
+   console.log(arr)
+
+   2.第二种定义数组的方式
+   var arr:Array<number>=[1,2,3,4,5] 
+   console.log(arr)
+
+   3.第三种定义数组的方式
+    var arr:any=[1,'xs',3,4,5] 
+    console.log(arr)
+
+5.元组类型（tuple） 属于数组的一种
+   let arr:[number,string] = [123,'this is ts']
+   console.log(arr)
+
+6.枚举类型（enum）
+随着计算机的不断普及，程序不仅用于数值计算，还更广泛的用于处理非数值的数据。
+例如：性别、月份、星期几、颜色、单位名、学历、职业等，都不是数值类型。
+在其它程序设计语言中，一般用一个数值来代表某一状态，这种处理方法不直观，易读性差。
+如果能在程序中用自然语言中相应含义的单词来代表某一状态，则程序就很容易阅读和理解。
+也就是说，事先考虑到某一变量可能取的值，尽量用自然语言中含义清楚的单词来表它的每
+一个值，这种方法称为枚举方法，用这种方法定义的类型称为枚举类型。
+     enum 枚举名{
+          标识符[=整形常数]，
+          标识符[=整形常数]，
+          标识符[=整形常数]，
+          ...
+          标识符[=整形常数]，
+     };
+     enum Flag {success=1,error=2};
+     let s:Flag = Flag.success;
+     console.log(s);
+
+     enum Color {blue,red,'orange'}
+     let c:Color = Color.red
+     console.log(c);          // 如果标识符没有赋值，它的值就是下标
+
+7.任意类型（any）
+     var num:any = 123;
+     num='str'
+     console.log(num)
+
+8.null 和 undefined 其它（never类型）数据类型的子类型
+     var result:number | undefined;
+     result = 123;
+     console.log(result)
+
+     var result1:null | undefined;
+     console.log(result1)
+
+     var result3:null;
+     result3 = null
+     console.log(result3)
+
+     var result4:number|null|undefined;
+     result4 = 123
+     console.log(result4)
+
+9.void类型：typescript中的void表示没有任何类型，一般用于定义方法的时候没有返回值
+     //Es5的定义方法
+     function run(){
+       console.log('run')
+    }
+
+     //Typescript中的用法
+     function run():void{
+        console.log('run')
+     }
+run;
+
+10.never类型：是其他类型（包括 null 和 undefined）的子类型，代表从不会出现的值，这意味着声明never的变量只能被
+never类型所赋值。
+
+五、Typescript 函数
+1.函数的定义：
+  //Es5中=>函数声明法
+  function run(){
+    return 'run'
+}
+
+  //Es5中=>函数表达式法（匿名函数法）
+   var run2 = function(){
+     return 'run2'
+}
+
+  //Typescript中=>函数声明法
+  function  run():string{
+     return 123;
+}
+
+  //Typescript中=>函数表达式法（匿名函数法）
+  var fun = function():number{
+     return 456;
+}
+
+//Ts中定义方法传参
+function getInfo(name:string,age:number):string{
+    return `我叫${name}，今年${age}岁了`//这里用到了模板自变量表示法
+}
+
+console.log(getInfo('zs',18))
+
+//没有返回值的方法
+function getInfo2(name:string,age:number):void{
+    console.log(name+age)
+}
+getInfo2('ls',20)
+
+//方法可选参数
+//Es5里面方法的实参和形参可以不一样，如果不一样就需要配置可选参数
+
+function getPersonalInfo(name: string, age?: number): string {
+    if (age) {
+        return `${name}---${age}`
+    } else {
+        return `${name}---年龄不告诉你`
+    }
+}
+
+console.log(getPersonalInfo('ww'))
+
+//注意：可选参数必须配置到参数的最后面
+/*
+function getPersonalInfo(name？: string, age: number): string {
+    if (age) {
+        return `${name}---${age}`
+    } else {
+        return `${name}---年龄不告诉你`
+    }
+}
+console.log(getPersonalInfo('ww'))
+以上这种写法是错误的
+*/
+
+//默认参数（默认参数也可以叫做可选参数）
+function getPersonalInfo2(name: string, age: number = 20): string {
+    if (age) {
+        return `${name}---${age}`
+    } else {
+        return `${name}---年龄不告诉你`
+    }
+}
+console.log(getPersonalInfo2('lyy',30))//调用方法时传入默认参数的值会覆盖原来默认参数的值
+
+//三点运算符（用于解决形参个数太多不好表示的问题）
+function add(...result: number[]): number {
+    var sum = 0;
+    result.forEach(item => {
+        sum += item
+    })
+    return sum;
+}
+console.log(add(1, 2, 3, 4, 5))
+
+function add2(num:number,...result: number[]): number {//这样也行
+    var sum = num;
+    result.forEach(item => {
+        sum += item
+    })
+    return sum;
+}
+console.log(add(1, 2, 3, 4, 5))
+
+//Ts函数重载
+// java中方法的重载，重载指的是方法的名字一样，但是形参的类型，个数，排列顺序不同，这是
+//会出现重载的情况
+
+// Typescript中的重载，通过为同一个同名函数提供多个函数类型来实现多种功能的目的
+
+// Ts为了兼容Es5  以及 Es6 重载的写法和java中有区别
+
+//Es5中出现同名函数，后面的函数会直接覆盖前面的函数
+/*
+function test(num){
+
+}
+
+function test(num,num2){
+
+}
+*/
+
+//Ts中函数的重载写法如下所示
+function postInfo(name: string): string;
+
+function postInfo(age: number): number;
+
+function postInfo(arr: any): any {
+    if (typeof (arr) == 'string') {
+        return `我的名字是${arr}`
+    } else {
+        return `我的年龄是${arr}`
+    }
+}
+console.log(postInfo('zs'))
+console.log(postInfo(13))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
