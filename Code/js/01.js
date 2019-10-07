@@ -164,3 +164,22 @@ function postInfo(arr) {
 }
 console.log(postInfo('zs'));
 console.log(postInfo(13));
+function patchInfo(name, age) {
+    if (age) {
+        return "\u6211\u7684\u59D3\u540D\u662F" + name + ",\u5E74\u9F84\u662F" + age;
+    }
+    else {
+        return "\u6211\u7684\u59D3\u540D\u662F" + name;
+    }
+}
+console.log(patchInfo('lyy'));
+console.log(patchInfo('ddt', 21));
+//Ts中的箭头函数（同Es6中的用法一样）箭头函数中的this指向上下文
+//未使用箭头函数
+setTimeout(function () {
+    console.log("---");
+}, 3000);
+//使用箭头函数
+setTimeout(function () {
+    console.log("===");
+}, 3000);

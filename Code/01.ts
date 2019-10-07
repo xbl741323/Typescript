@@ -176,7 +176,7 @@ function test(num,num2){
 }
 */
 
-//Ts中函数的重载写法如下所示
+//Ts中函数的重载写法如下所示（参数一样时）
 function postInfo(name: string): string;
 
 function postInfo(age: number): number;
@@ -190,5 +190,33 @@ function postInfo(arr: any): any {
 }
 console.log(postInfo('zs'))
 console.log(postInfo(13))
+
+//Ts中函数的重载写法如下所示（参数不一样时）
+function patchInfo(name: string): string;
+
+function patchInfo(name: string, age: number): string;
+
+function patchInfo(name: any, age?: any): any {
+    if (age) {
+        return `我的姓名是${name},年龄是${age}`
+    } else {
+        return `我的姓名是${name}`
+    }
+}
+
+console.log(patchInfo('lyy'))
+console.log(patchInfo('ddt', 21))
+
+//Ts中的箭头函数（同Es6中的用法一样）箭头函数中的this指向上下文
+//未使用箭头函数
+setTimeout(function () {
+    console.log("---")
+}, 3000)
+
+//使用箭头函数
+setTimeout(() => {
+    console.log("===")
+}, 3000)
+
 
 
