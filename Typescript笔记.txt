@@ -389,7 +389,7 @@ setTimeout(() => {
         var w = new Web('ww', 20) //问题：原型链中的继承在实例化子类的时候没法给父类传参
         w.getInfo()
 
-//原型链+构造函数的组合继承模式（有两种写法）
+//7.原型链+构造函数的组合继承模式（有两种写法）
         function Person(name, age) {
             this.name = name;
             this.age = age;
