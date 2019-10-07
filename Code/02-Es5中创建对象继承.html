@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>02-Es5中创建对象继承</title>
+    <style>
+        body {
+            background-color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        // 1.Es5中的类
+        // function Person() {
+        //     this.name = '张三';
+        //     this.age = 20;
+        // }
+
+        // var p = new Person();
+        // console.log(p.name)
+
+        //2.构造函数和原型链里面增加的方法
+        //构造函数中
+        // function Student() {
+        //     this.name = '李四';
+        //     this.age = 18;
+        //     this.getInfo = function () {//实例方法
+        //         console.log(`我的名字是${this.name},我的年龄是${this.age}`)
+        //     }
+        // }
+
+        //原型链中 (原型链中的属性会被多个实例所共享，构造函数中不会)
+        // Student.prototype.sex = '男'
+        // Student.prototype.getSex = function () {
+        //     console.log(`我的性别是${this.sex}`)
+        // }
+        //3.静态方法
+        // Student.getName = function(){
+        //     console.log(`调用静态方法`)
+        // }
+
+        // var s = new Student();
+        // s.getInfo()
+        // s.getSex()
+        //调用静态方法
+        // Student.getName()
+
+        //4.Es5中的继承 （对象冒充实现继承）
+        // function Student() {
+        //     this.name = '李四';
+        //     this.age = 18;
+        //     this.getInfo = function () {//实例方法
+        //         console.log(`我的名字是${this.name},我的年龄是${this.age}`)
+        //     }
+        // }
+        // Student.prototype.sex = '男'
+        // Student.prototype.getSex = function () {
+        //     console.log(`我的性别是${this.sex}`)
+        // }
+
+        //Web类继承Student类 原型链加对象冒充的组合继承模式
+        // function Web(){
+        //     Student.call(this)//对象冒充实现继承
+        // }
+        // var v = new Web();//对象冒充可以继承构造函数里的属性和方法，但是不能继承原型链中的属性和方法
+        // v.getInfo()
+        // console.log(v.name)
+        // v.getSex()//这里不能调用原型链中的属性和方法
+        // console.log(v.sex)
+
+        //5.Es5中的继承（原型链实现继承）
+        // function Student() {
+        //     this.name = '李四';
+        //     this.age = 18;
+        //     this.getInfo = function () {//实例方法
+        //         console.log(`我的名字是${this.name},我的年龄是${this.age}`)
+        //     }
+        // }
+        // Student.prototype.sex = '男'
+        // Student.prototype.getSex = function () {
+        //     console.log(`我的性别是${this.sex}`)
+        // }
+
+        // function Web() {//1.这一步要有
+
+        // }
+        // Web.prototype = new Student()//2.这一步也要有
+
+        // var w = new Web();//原型链中即可以继承构造函数里面的属性和方法，也可以继承原型链中的属性和方法
+        // w.getSex()
+        // console.log(w.name)
+        // w.getInfo()
+
+        //6.原型链中实现继承的问题？
+        // function Person(name, age) {
+        //     this.name = name;
+        //     this.age = age;
+        //     this.getInfo = function () {
+        //         console.log(`我的名字是${this.name},我的年龄是${this.age}`)
+        //     }
+        // }
+
+        // Person.prototype.sex = '男';
+        // Person.prototype.getSex = function () {
+        //     console.lgo(`我的性别是${this.sex}`)
+        // }
+        // var p = new Person('李四', 18)
+        // p.getInfo()
+
+        // function Web() {
+
+        // }
+
+        // Web.prototype = new Person()
+
+        // var w = new Web('ww', 20) //问题：原型链中的继承在实例化子类的时候没法给父类传参
+        // w.getInfo()
+
+
+        //原型链+构造函数的组合继承模式（有两种写法）
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+            this.getInfo = function () {
+                console.log(`我的名字是${this.name},我的年龄是${this.age}`)
+            }
+        }
+
+        Person.prototype.sex = '男';
+        Person.prototype.getSex = function () {
+            console.log(`我的性别是${this.sex}`)
+        }
+        var p = new Person('李四', 18)
+        p.getInfo()
+
+        function Web(name,age) {
+            Person.call(this, name, age) //对象冒充继承实例化子类时，可以给父类传参
+        }
+
+        // Web.prototype = new Person() //这样原型链+构造函数的组合继承模式可以修补不足（第一种写法）
+
+        Web.prototype = Person.prototype //原型链+构造函数的组合继承模式的另一种写法
+
+        var w = new Web('ww', 20) //问题：原型链中的继承在实例化子类的时候没法给父类传参
+        w.getInfo()
+        w.getSex()
+    </script>
+</body>
+
+</html>
