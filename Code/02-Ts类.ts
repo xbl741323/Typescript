@@ -85,33 +85,53 @@ private:私有类型          在类里面可以访问，子类、类外部都�
 属性不加修饰符，默认是public
 */
 
+// class Person {
+//     public name: string;
+//     // protected name: string;  属性在类里面、子类里面可以访问，在类外部没法访问
+//     // private name: string; 属性在类里面可以访问，子类、类外部都没法访问
+//     constructor(name: string) {
+//         this.name = name;
+//     }
+//     run(): void {
+//         console.log(`${this.name}在奔跑~`)
+//     }
+// }
+
+// class Student extends Person {
+//     constructor(name: string) {
+//         super(name)
+//     }
+//     study(): void {
+//         console.log(`${this.name}在学习~`) //子类中
+//     }
+// }
+
+// var p = new Person("小明")
+// console.log(p.name) //类内部
+// p.run() //类外部
+
+// var a = new Student("小黑")
+// a.study()
+
+//4.Ts中的静态方法
 class Person {
     public name: string;
-    // protected name: string;  属性在类里面、子类里面可以访问，在类外部没法访问
-    // private name: string; 属性在类里面可以访问，子类、类外部都没法访问
+    static age = 18;
     constructor(name: string) {
         this.name = name;
     }
-    run(): void {
+    run(): void { //Ts中的实例方法
         console.log(`${this.name}在奔跑~`)
     }
-}
-
-class Student extends Person {
-    constructor(name: string) {
-        super(name)
-    }
-    study(): void {
-        console.log(`${this.name}在学习~`) //子类中
+    static ski() { //静态方法的定义 注意：静态方法里只能调用静态属性
+        console.log(`在调用静态方法中的静态属性${this.age}`)
     }
 }
 
-var p = new Person("小明")
-console.log(p.name) //类内部
-p.run() //类外部
-
-var a = new Student("小黑")
-a.study()
+var p = new Person("王五")
+p.run() //调用实例方法，实例对象.方法名
+Person.ski()  //调用静态方法，类名.静态方法名
+console.log(Person.age)
 
 
 

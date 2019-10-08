@@ -11,19 +11,6 @@ function Person(name){
 var p = new Person("张三")
 p.run()
 */
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 // class Person { //上述Es5中的类的声明实例化过程，在Ts中写法如下
 //     name: string;   //属性前面省略了public关键词
 //     constructor(name: string) { //构造函数实例化类的时候触发的方法
@@ -86,29 +73,45 @@ private:私有类型          在类里面可以访问，子类、类外部都�
 
 属性不加修饰符，默认是public
 */
+// class Person {
+//     public name: string;
+//     // protected name: string;  属性在类里面、子类里面可以访问，在类外部没法访问
+//     // private name: string; 属性在类里面可以访问，子类、类外部都没法访问
+//     constructor(name: string) {
+//         this.name = name;
+//     }
+//     run(): void {
+//         console.log(`${this.name}在奔跑~`)
+//     }
+// }
+// class Student extends Person {
+//     constructor(name: string) {
+//         super(name)
+//     }
+//     study(): void {
+//         console.log(`${this.name}在学习~`) //子类中
+//     }
+// }
+// var p = new Person("小明")
+// console.log(p.name) //类内部
+// p.run() //类外部
+// var a = new Student("小黑")
+// a.study()
+//4.Ts中的静态方法
 var Person = /** @class */ (function () {
-    // protected name: string;  属性在类里面、子类里面可以访问，在类外部没法访问
-    // private name: string; 属性在类里面可以访问，子类、类外部都没法访问
     function Person(name) {
         this.name = name;
     }
     Person.prototype.run = function () {
         console.log(this.name + "\u5728\u5954\u8DD1~");
     };
+    Person.ski = function () {
+        console.log("\u5728\u8C03\u7528\u9759\u6001\u65B9\u6CD5\u4E2D\u7684\u9759\u6001\u5C5E\u6027" + this.age);
+    };
+    Person.age = 18;
     return Person;
 }());
-var Student = /** @class */ (function (_super) {
-    __extends(Student, _super);
-    function Student(name) {
-        return _super.call(this, name) || this;
-    }
-    Student.prototype.study = function () {
-        console.log(this.name + "\u5728\u5B66\u4E60~"); //子类中
-    };
-    return Student;
-}(Person));
-var p = new Person("小明");
-console.log(p.name); //类内部
-p.run(); //类外部
-var a = new Student("小黑");
-a.study();
+var p = new Person("王五");
+p.run(); //调用实例方法，实例对象.方法名
+Person.ski(); //调用静态方法，类名.静态方法名
+console.log(Person.age);

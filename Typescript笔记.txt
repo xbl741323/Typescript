@@ -532,6 +532,26 @@ p.run() //类外部
 var a = new Student("小黑")
 a.study()
 
+//4.Ts中的静态方法
+class Person {
+    public name: string;
+    static age = 18;
+    constructor(name: string) {
+        this.name = name;
+    }
+    run(): void { //Ts中的实例方法
+        console.log(`${this.name}在奔跑~`)
+    }
+    static ski() { //静态方法的定义 注意：静态方法里只能调用静态属性
+        console.log(`在调用静态方法中的静态属性${this.age}`)
+    }
+}
+
+var p = new Person("王五")
+p.run() //调用实例方法，实例对象.方法名
+Person.ski()  //调用静态方法，类名.静态方法名
+console.log(Person.age)
+
 
 
 
