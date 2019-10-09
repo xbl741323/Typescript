@@ -32,11 +32,43 @@ interface FullName {
 }
 
 function getFullName(name: FullName): void {
-   console.log(`${name.firstName}---${name.secondName}`)
+    console.log(`${name.firstName}---${name.secondName}`)
 }
 
 var o = {
-    firstName:"张三",
+    firstName: "张三",
     // secondName:"李四" //此处可以不要对应属性
 }
 getFullName(o)
+
+//利用Ts中的接口封装的ajax请求
+interface Config {
+    type: string;
+    url: string;
+    data?: string;
+    dataType: string;
+}
+
+
+//原生js封装的ajax(不兼容Ie6)
+function ajax(config: Config) {
+    var oReq = new XMLHttpRequest();
+    oReq.open(config.type, config.url, true);
+    oReq.send();
+    oReq.onreadystatechange = function () {
+        if (oReq.readyState == 4 && oReq.status == 200) {
+            console.log('请求成功！')
+            if (config.dataType == 'json') {
+                console.log(JSON.parse(oReq.responseText))
+            } else {
+                console.log(oReq.responseText)
+            }
+        }
+    }
+}
+
+ajax({
+    type: 'get',
+    url: 'http://localhost:3300/getProduct',
+    dataType: 'json'
+})

@@ -13,3 +13,25 @@ var o = {
     firstName: "张三",
 };
 getFullName(o);
+//原生js封装的ajax(不兼容Ie6)
+function ajax(config) {
+    var oReq = new XMLHttpRequest();
+    oReq.open(config.type, config.url, true);
+    oReq.send();
+    oReq.onreadystatechange = function () {
+        if (oReq.readyState == 4 && oReq.status == 200) {
+            console.log('请求成功！');
+            if (config.dataType == 'json') {
+                console.log(JSON.parse(oReq.responseText));
+            }
+            else {
+                console.log(oReq.responseText);
+            }
+        }
+    };
+}
+ajax({
+    type: 'get',
+    url: 'http://localhost:3300/getProduct',
+    dataType: 'json'
+});
