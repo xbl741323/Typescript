@@ -177,49 +177,50 @@ private:私有类型          在类里面可以访问，子类、类外部都�
 
 //抽象类和抽象方法用来定义标准，抽象方法必须被派生类继承和实现
 
-abstract class Animal {
-    public name: string;
-    constructor(name: string) {
-        this.name = name;
-    }
-    abstract eat(): any; //抽象类中的方法不包含具体实现，必须在派生类中去实现
+// abstract class Animal {
+//     public name: string;
+//     constructor(name: string) {
+//         this.name = name;
+//     }
+//     abstract eat(): any; //抽象类中的方法不包含具体实现，必须在派生类中去实现
 
-    ski() {
-        console.log("抽象类中的其他方法！") //派生类可以不继承
-    }
-}
+//     ski() {
+//         console.log("抽象类中的其他方法！") //派生类可以不继承
+//     }
+// }
 
-// var a = new Animal("小白"); 抽象类不能被实例化
+// // var a = new Animal("小白"); 抽象类不能被实例化
 
-class Dog extends Animal {
-    constructor(name: string) {
-        super(name)
-    }
-    eat(): string {  //继承抽象类的子类必须继承并实现抽象类中的抽象方法
-        return `${this.name}在吃肉！`
-    }
+// class Dog extends Animal {
+//     constructor(name: string) {
+//         super(name)
+//     }
+//     eat(): string {  //继承抽象类的子类必须继承并实现抽象类中的抽象方法
+//         return `${this.name}在吃肉！`
+//     }
 
-    run(): void {
-        console.log("其它方法~")  //派生类中可以写自己的方法
-    }
-}
+//     run(): void {
+//         console.log("其它方法~")  //派生类中可以写自己的方法
+//     }
+// }
 
-class Cat extends Animal {
-    constructor(name: string) {
-        super(name)
-    }
-    eat(): string {  //继承抽象类的子类必须继承并实现抽象类中的抽象方法
-        return `${this.name}在吃鱼！`
-    }
+// class Cat extends Animal {
+//     constructor(name: string) {
+//         super(name)
+//     }
+//     eat(): string {  //继承抽象类的子类必须继承并实现抽象类中的抽象方法
+//         return `${this.name}在吃鱼！`
+//     }
 
-    run(): void {
-        console.log("其它方法~")  //派生类中可以写自己的方法
-    }
-}
+//     run(): void {
+//         console.log("其它方法~")  //派生类中可以写自己的方法
+//     }
+// }
 
-var d = new Dog("小白");
-console.log(d.eat())
-d.run()
+// var d = new Dog("小白");
+// console.log(d.eat())
+// d.run()
 
-var ca = new Cat("小黑");
-console.log(ca.eat())
+// var ca = new Cat("小黑");
+// console.log(ca.eat())
+

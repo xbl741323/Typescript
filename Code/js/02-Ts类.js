@@ -11,19 +11,6 @@ function Person(name){
 var p = new Person("张三")
 p.run()
 */
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 // class Person { //上述Es5中的类的声明实例化过程，在Ts中写法如下
 //     name: string;   //属性前面省略了public关键词
 //     constructor(name: string) { //构造函数实例化类的时候触发的方法
@@ -163,44 +150,41 @@ private:私有类型          在类里面可以访问，子类、类外部都�
 //用abstract关键词定义抽象类和方法，抽像类中的抽象方法不包含具体的实现并且必须在派生类中实现
 //abstract抽象方法只能放在抽象类中
 //抽象类和抽象方法用来定义标准，抽象方法必须被派生类继承和实现
-var Animal = /** @class */ (function () {
-    function Animal(name) {
-        this.name = name;
-    }
-    Animal.prototype.ski = function () {
-        console.log("抽象类中的其他方法！"); //派生类可以不继承
-    };
-    return Animal;
-}());
-// var a = new Animal("小白"); 抽象类不能被实例化
-var Dog = /** @class */ (function (_super) {
-    __extends(Dog, _super);
-    function Dog(name) {
-        return _super.call(this, name) || this;
-    }
-    Dog.prototype.eat = function () {
-        return this.name + "\u5728\u5403\u8089\uFF01";
-    };
-    Dog.prototype.run = function () {
-        console.log("其它方法~"); //派生类中可以写自己的方法
-    };
-    return Dog;
-}(Animal));
-var Cat = /** @class */ (function (_super) {
-    __extends(Cat, _super);
-    function Cat(name) {
-        return _super.call(this, name) || this;
-    }
-    Cat.prototype.eat = function () {
-        return this.name + "\u5728\u5403\u9C7C\uFF01";
-    };
-    Cat.prototype.run = function () {
-        console.log("其它方法~"); //派生类中可以写自己的方法
-    };
-    return Cat;
-}(Animal));
-var d = new Dog("小白");
-console.log(d.eat());
-d.run();
-var ca = new Cat("小黑");
-console.log(ca.eat());
+// abstract class Animal {
+//     public name: string;
+//     constructor(name: string) {
+//         this.name = name;
+//     }
+//     abstract eat(): any; //抽象类中的方法不包含具体实现，必须在派生类中去实现
+//     ski() {
+//         console.log("抽象类中的其他方法！") //派生类可以不继承
+//     }
+// }
+// // var a = new Animal("小白"); 抽象类不能被实例化
+// class Dog extends Animal {
+//     constructor(name: string) {
+//         super(name)
+//     }
+//     eat(): string {  //继承抽象类的子类必须继承并实现抽象类中的抽象方法
+//         return `${this.name}在吃肉！`
+//     }
+//     run(): void {
+//         console.log("其它方法~")  //派生类中可以写自己的方法
+//     }
+// }
+// class Cat extends Animal {
+//     constructor(name: string) {
+//         super(name)
+//     }
+//     eat(): string {  //继承抽象类的子类必须继承并实现抽象类中的抽象方法
+//         return `${this.name}在吃鱼！`
+//     }
+//     run(): void {
+//         console.log("其它方法~")  //派生类中可以写自己的方法
+//     }
+// }
+// var d = new Dog("小白");
+// console.log(d.eat())
+// d.run()
+// var ca = new Cat("小黑");
+// console.log(ca.eat())
