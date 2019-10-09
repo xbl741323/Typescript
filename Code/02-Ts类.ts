@@ -114,24 +114,112 @@ private:私有类型          在类里面可以访问，子类、类外部都�
 // a.study()
 
 //4.Ts中的静态方法
-class Person {
+// class Person {
+//     public name: string;
+//     static age = 18;
+//     constructor(name: string) {
+//         this.name = name;
+//     }
+//     run(): void { //Ts中的实例方法
+//         console.log(`${this.name}在奔跑~`)
+//     }
+//     static ski() { //静态方法的定义 注意：静态方法里只能调用静态属性
+//         console.log(`在调用静态方法中的静态属性${this.age}`)
+//     }
+// }
+
+// var p = new Person("王五")
+// p.run() //调用实例方法，实例对象.方法名
+// Person.ski()  //调用静态方法，类名.静态方法名
+// console.log(Person.age)
+
+//5.多态：父类定义一个方法不去实现，让继承它的子类去实现，每一个子类有不同的表现
+
+// //多态属于继承
+// class Animal {
+//     public name: string;
+//     constructor(name: string) {
+//         this.name = name;
+//     }
+//     eat(): void { //具体吃什么不知道，具体吃什么让继承它的子类去实现，每个子类的表现不一样
+//         console.log("吃的方法~")
+//     }
+// }
+
+// class Dog extends Animal {
+//     constructor(name: string) {
+//         super(name)
+//     }
+//     eat(): string {
+//         return `${this.name}吃肉!`
+//     }
+// }
+
+// class Cat extends Animal {
+//     constructor(name: string) {
+//         super(name)
+//     }
+//     eat(): string {
+//         return `${this.name}吃鱼！`
+//     }
+// }
+// var d = new Dog("小白"); 
+// console.log(d.eat())
+
+// var ca = new Cat("小黑");
+// console.log(ca.eat())
+
+//6.Ts中的抽象类，它是提供其它类继承的基类，不能直接被实例化
+
+//用abstract关键词定义抽象类和方法，抽像类中的抽象方法不包含具体的实现并且必须在派生类中实现
+
+//abstract抽象方法只能放在抽象类中
+
+//抽象类和抽象方法用来定义标准，抽象方法必须被派生类继承和实现
+
+abstract class Animal {
     public name: string;
-    static age = 18;
     constructor(name: string) {
         this.name = name;
     }
-    run(): void { //Ts中的实例方法
-        console.log(`${this.name}在奔跑~`)
-    }
-    static ski() { //静态方法的定义 注意：静态方法里只能调用静态属性
-        console.log(`在调用静态方法中的静态属性${this.age}`)
+    abstract eat(): any; //抽象类中的方法不包含具体实现，必须在派生类中去实现
+
+    ski() {
+        console.log("抽象类中的其他方法！") //派生类可以不继承
     }
 }
 
-var p = new Person("王五")
-p.run() //调用实例方法，实例对象.方法名
-Person.ski()  //调用静态方法，类名.静态方法名
-console.log(Person.age)
+// var a = new Animal("小白"); 抽象类不能被实例化
 
+class Dog extends Animal {
+    constructor(name: string) {
+        super(name)
+    }
+    eat(): string {  //继承抽象类的子类必须继承并实现抽象类中的抽象方法
+        return `${this.name}在吃肉！`
+    }
 
+    run(): void {
+        console.log("其它方法~")  //派生类中可以写自己的方法
+    }
+}
 
+class Cat extends Animal {
+    constructor(name: string) {
+        super(name)
+    }
+    eat(): string {  //继承抽象类的子类必须继承并实现抽象类中的抽象方法
+        return `${this.name}在吃鱼！`
+    }
+
+    run(): void {
+        console.log("其它方法~")  //派生类中可以写自己的方法
+    }
+}
+
+var d = new Dog("小白");
+console.log(d.eat())
+d.run()
+
+var ca = new Cat("小黑");
+console.log(ca.eat())
