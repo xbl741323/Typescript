@@ -866,7 +866,41 @@ m2.add("f")
 m2.add("a")
 console.log(m2.fidMin())
 
+//7.函数类型接口
+interface Configs{
+    (value1:string,value2:string):string;
+}
 
+var setData:Configs = function(value1:string,value2:string):string{
+    return value1 + value2;
+}
+
+console.log(setData("a","w"))
+
+//8.定义泛型接口的方式一
+ interface Configs{
+    <T>(value:T):T;
+ }
+
+ var setData:Configs = function<T>(value:T):T{
+     return value;
+ }
+
+ console.log(setData<string>("avbs"))
+ console.log(setData<number>(123))
+
+//定义泛型接口的方式二(不太好理解)
+interface Configs<T> {
+    (value: T): T;
+}
+
+function setData<T>(value:T):T{
+    return value;
+}
+
+var p:Configs<string> = setData;
+
+console.log(p("asc"));
 
 
 

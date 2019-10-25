@@ -116,51 +116,51 @@ var stu: Person = { name: "zs" }
 
 //接口扩展 接口可以继承接口
 
-interface Animal {
-    eat(): void;
-}
+// interface Animal {
+//     eat(): void;
+// }
 
-interface Tiger extends Animal {
-    run(): void;
-}
+// interface Tiger extends Animal {
+//     run(): void;
+// }
 
-class Programer {
-    name: string;
-    constructor(name: string) {
-        this.name = name;
-    }
-    coding(str: string) {
-        console.log(`我在学习${str}`)
-    }
-}
+// class Programer {
+//     name: string;
+//     constructor(name: string) {
+//         this.name = name;
+//     }
+//     coding(str: string) {
+//         console.log(`我在学习${str}`)
+//     }
+// }
 
-class DongBeiHu extends Programer implements Tiger {
-    constructor(name: string) {
-        super(name)
-    }
-    eat() {
-        console.log("我在吃!")
-    }
-    run() {
-        console.log("我在跑!")
-    }
-}
+// class DongBeiHu extends Programer implements Tiger {
+//     constructor(name: string) {
+//         super(name)
+//     }
+//     eat() {
+//         console.log("我在吃!")
+//     }
+//     run() {
+//         console.log("我在跑!")
+//     }
+// }
 
-var t = new DongBeiHu("小虎");
-t.eat();
-t.run();
-t.coding("java")
+// var t = new DongBeiHu("小虎");
+// t.eat();
+// t.run();
+// t.coding("java")
 
 
-//泛型:可以支持不特定的数据类型    要求:传入什么类型返回什么类型
-function getData<T>(value: T): T {
-    return value;
-}
+// //泛型:可以支持不特定的数据类型    要求:传入什么类型返回什么类型
+// function getData<T>(value: T): T {
+//     return value;
+// }
 
-var res = getData<number>(123)
-var res2 = getData<string>("字符串")
-console.log(res)
-console.log(res2)
+// var res = getData<number>(123)
+// var res2 = getData<string>("字符串")
+// console.log(res)
+// console.log(res2)
 
 //类的泛型
 
@@ -193,33 +193,71 @@ console.log(res2)
 // console.log(m.FindMin())
 
 //通过使用泛型实现实现
-class MinFix<T>{
-    public list: T[] = []
+// class MinFix<T>{
+//     public list: T[] = []
 
-    add(val: T):void {
-        this.list.push(val)
-    }
+//     add(val: T):void {
+//         this.list.push(val)
+//     }
 
-    fidMin(): T {
-        //字符串类型通过Asll的值来比较
-        var minVal = this.list[0];
-        this.list.forEach(item => {
-            if (minVal > item) {
-                minVal = item
-            }
-        })
-        return minVal;
-    }
+//     fidMin(): T {
+//         //字符串类型通过Asll的值来比较
+//         var minVal = this.list[0];
+//         this.list.forEach(item => {
+//             if (minVal > item) {
+//                 minVal = item
+//             }
+//         })
+//         return minVal;
+//     }
+// }
+
+// var m = new MinFix<number>();
+// m.add(21)
+// m.add(23)
+// m.add(76)
+// console.log(m.fidMin())
+
+// var m2 = new MinFix<string>();
+// m2.add("c")
+// m2.add("f")
+// m2.add("a")
+// console.log(m2.fidMin())
+
+
+//函数类型接口
+// interface Configs{
+//     (value1:string,value2:string):string;
+// }
+
+// var setData:Configs = function(value1:string,value2:string):string{
+//     return value1 + value2;
+// }
+
+// console.log(setData("a","w"))
+
+
+//定义泛型接口的方式一
+// interface Configs{
+//     <T>(value:T):T;
+// }
+
+// var setData:Configs = function<T>(value:T):T{
+//     return value;
+// }
+
+// console.log(setData<string>("avbs"))
+// console.log(setData<number>(123))
+
+//定义泛型接口的方式二(不太好理解)
+interface Configs<T> {
+    (value: T): T;
 }
 
-var m = new MinFix<number>();
-m.add(21)
-m.add(23)
-m.add(76)
-console.log(m.fidMin())
+function setData<T>(value:T):T{
+    return value;
+}
 
-var m2 = new MinFix<string>();
-m2.add("c")
-m2.add("f")
-m2.add("a")
-console.log(m2.fidMin())
+var p:Configs<string> = setData;
+
+console.log(p("asc"));
